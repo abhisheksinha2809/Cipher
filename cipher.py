@@ -168,6 +168,7 @@ if __name__ == "__main__":
             joke = pyjokes.get_joke()
             speak(joke)
 
+
         elif "shutdown the system" in query:
             speak("Are You sure you want to shutdown")
             shutdown = input("Do you wish to shutdown your computer? (yes/no)")
@@ -175,6 +176,7 @@ if __name__ == "__main__":
                 os.system("shutdown /s /t 1")
             elif shutdown == "no":
              break
+
 
         elif "restart the system" in query:
             os.system("shutdown /r /t S")
