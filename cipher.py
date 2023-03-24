@@ -1,4 +1,3 @@
-
 import pyttsx3  # pip install pyttsx3
 import speech_recognition as sr
 import datetime
@@ -10,10 +9,11 @@ import smtplib
 import random
 import pywhatkit as kit
 import sys
-import time #time library
+import time  # time library
 import pyjokes
 from requests import get
-
+import requests
+from bs4 import BeautifulSoup
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -29,10 +29,10 @@ def speak(audio):
 
 def wishMe():
     hour = int(datetime.datetime.now().hour)
-    if hour >= 0 and hour < 12:
+    if 0 <= hour < 12:
         speak("Good Morning!")
 
-    elif hour >= 12 and hour < 18:
+    elif 12 <= hour < 18:
         speak("Good Afternoon!")
 
     else:
@@ -40,11 +40,11 @@ def wishMe():
 
     speak("Sir, I am Cipher. Please tell me how may I help you")
 
+
 # to convert voice into text
 
 
 def takeCommand():
-
     r = sr.Recognizer()
     with sr.Microphone() as source:
         print("Listening...")
@@ -61,6 +61,7 @@ def takeCommand():
         return "None"
     return query
 
+
 # to send email
 
 
@@ -76,7 +77,7 @@ def sendEmail(to, content):
 if __name__ == "__main__":
     wishMe()
     while True:
-    # if 1:
+        # if 1:
         query = takeCommand().lower()
 
         if 'wikipedia' in query:
@@ -129,7 +130,7 @@ if __name__ == "__main__":
                 cv2.imshow('webcam', img)
                 k = cv2.waitKey(100)
                 if k == 27:
-                    break ;
+                    break
                 cap.release()
                 cv2.destroyAllWindows()
 
@@ -149,21 +150,21 @@ if __name__ == "__main__":
             cm = takeCommand().lower()
             webbrowser.open(f"{cm}")
 
-        
-# to close applications
+
+        # to close applications
 
         elif "close notepad" in query:
             speak("okay sir, closing notepad")
             os.system("taskkill/f /im notepad.exe")
 
-# to set an alarm
+        # to set an alarm
         elif "setb alarm" in query:
             nn = int(datetime.datetime.now().hour)
             if nn == 22:
                 music_dir = 'E:\\music'
                 songs = os.listdir(music_dir, songs[0])
 
-# to find a joke
+        # to find a joke
         elif "tell me a joke" in query:
             joke = pyjokes.get_joke()
             speak(joke)
@@ -175,7 +176,7 @@ if __name__ == "__main__":
             if shutdown == "yes":
                 os.system("shutdown /s /t 1")
             elif shutdown == "no":
-             break
+                break
 
 
         elif "restart the system" in query:
@@ -186,4 +187,15 @@ if __name__ == "__main__":
 
         elif "whatsapp" in query:
             from whatsapp import sendMessage
+
             sendMessage()
+
+
+        elif "temperature" in query:
+            search = "Temperature in chandigarh"
+            url = f"https://www.google.com/search?q={search}"
+
+            r = requests.get(url)
+            data = BeautifulSoup(r.text, "html.parser")
+            temp = data.find("div", class_="BNeawe").text
+            speak(f"current {search} is {temp}")
