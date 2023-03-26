@@ -14,6 +14,7 @@ import pyjokes
 from requests import get
 import requests
 from bs4 import BeautifulSoup
+import speedtest
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -118,7 +119,8 @@ if __name__ == "__main__":
             os.startfile(codePath)
 
         elif 'open notepad' in query:
-            codePath = "C:\\Program Files\\WindowsApps\\Microsoft.WindowsNotepad_11.2210.5.0_x64__8wekyb3d8bbwe\\Notepad\\Notepad.exe"
+            codePath = "C:\\Program Files\\WindowsApps\\Microsoft.WindowsNotepad_11.2210.5.0_x64__8wekyb3d8bbwe" \
+                       "\\Notepad\\Notepad.exe"
             os.startfile(codePath)
         elif "open command prompt" in query:
             os.system("start cmd")
@@ -199,3 +201,11 @@ if __name__ == "__main__":
             data = BeautifulSoup(r.text, "html.parser")
             temp = data.find("div", class_="BNeawe").text
             speak(f"current {search} is {temp}")
+
+        elif "internet speed" in query:
+            st = speedtest.Speedtest()
+            downloadSpeed = st.download()
+            uploadSpeed = st.upload()
+            speak(f"Sir the download speed is {downloadSpeed} bits per second and upload speed is {uploadSpeed} bits "
+                  f"per second")
+
