@@ -1,3 +1,4 @@
+import psutil
 import pyttsx3  # pip install pyttsx3
 import speech_recognition as sr
 import datetime
@@ -91,8 +92,6 @@ if __name__ == "__main__":
 
         elif 'youtube' in query:
             webbrowser.open("youtube.com")
-        elif 'youtube' in query:
-            webbrowser.open("instagram.com")
 
         elif 'browser' in query:
             webbrowser.open("google.com")
@@ -106,9 +105,9 @@ if __name__ == "__main__":
             print(songs)
             os.startfile(os.path.join(music_dir, songs[0]))
 
-        elif "ip adress" in query:
+        elif "ip address" in query:
             ip = get('https://api.ipify.org').text
-            speak(f"your IP adress is {ip}")
+            speak(f"your IP address is {ip}")
 
         elif 'the time' in query:
             strTime = datetime.datetime.now().strftime("%H:%M:%S")
@@ -152,15 +151,12 @@ if __name__ == "__main__":
             cm = takeCommand().lower()
             webbrowser.open(f"{cm}")
 
-
-        # to close applications
-
         elif "close notepad" in query:
             speak("okay sir, closing notepad")
             os.system("taskkill/f /im notepad.exe")
 
         # to set an alarm
-        elif "setb alarm" in query:
+        elif "set alarm" in query:
             nn = int(datetime.datetime.now().hour)
             if nn == 22:
                 music_dir = 'E:\\music'
@@ -171,7 +167,6 @@ if __name__ == "__main__":
             joke = pyjokes.get_joke()
             speak(joke)
 
-
         elif "shutdown the system" in query:
             speak("Are You sure you want to shutdown")
             shutdown = input("Do you wish to shutdown your computer? (yes/no)")
@@ -179,7 +174,6 @@ if __name__ == "__main__":
                 os.system("shutdown /s /t 1")
             elif shutdown == "no":
                 break
-
 
         elif "restart the system" in query:
             os.system("shutdown /r /t S")
@@ -191,7 +185,6 @@ if __name__ == "__main__":
             from whatsapp import sendMessage
 
             sendMessage()
-
 
         elif "temperature" in query:
             search = "Temperature in chandigarh"
@@ -209,3 +202,10 @@ if __name__ == "__main__":
             speak(f"Sir the download speed is {downloadSpeed} bits per second and upload speed is {uploadSpeed} bits "
                   f"per second")
 
+        elif "check battery percentage" in query:
+            battery = psutil.sensors_battery()
+            percentage = battery.percent
+            if percentage < 20:
+                speak(f"Sir the system has {percentage} percent battery remaining you might need to plug in")
+            else:
+                speak(f"Sir the system has {percentage} percent battery remaining")
