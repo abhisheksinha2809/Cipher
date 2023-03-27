@@ -1,4 +1,5 @@
 import psutil
+import pyautogui
 import pyttsx3  # pip install pyttsx3
 import speech_recognition as sr
 import datetime
@@ -104,6 +105,15 @@ if __name__ == "__main__":
             songs = os.listdir(music_dir)
             print(songs)
             os.startfile(os.path.join(music_dir, songs[0]))
+
+        elif "volume up" in query:
+            pyautogui.press("volumeup")
+
+        elif "volume down" in query:
+            pyautogui.press("volumedown")
+
+        elif "volume mute" or "mute" in query:
+            pyautogui.press("volumemute")
 
         elif "ip address" in query:
             ip = get('https://api.ipify.org').text
