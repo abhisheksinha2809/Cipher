@@ -17,6 +17,7 @@ from requests import get
 import requests
 from bs4 import BeautifulSoup
 import speedtest
+from .apifeatures.newsFetcher import NewsFromBBC
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -219,3 +220,6 @@ if __name__ == "__main__":
                 speak(f"Sir the system has {percentage} percent battery remaining you might need to plug in")
             else:
                 speak(f"Sir the system has {percentage} percent battery remaining")
+
+        elif "read news":
+            NewsFromBBC()
