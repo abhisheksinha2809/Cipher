@@ -17,7 +17,8 @@ from requests import get
 import requests
 from bs4 import BeautifulSoup
 import speedtest
-from .apifeatures.newsFetcher import NewsFromBBC
+from apifeatures.newsFetcher import NewsFromBBC
+
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -38,7 +39,7 @@ def wishMe():
 
     elif 12 <= hour < 18:
         speak("Good Afternoon!")
-
+        
     else:
         speak("Good Evening!")
 
@@ -223,3 +224,5 @@ if __name__ == "__main__":
 
         elif "read news":
             NewsFromBBC()
+
+
