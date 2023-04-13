@@ -1,1 +1,1 @@
-cm = takeCommand().lower()
+import sys
